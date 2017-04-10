@@ -54,6 +54,8 @@ public class Communicator {
   }
 
   // Helper exponent method: only words for results that aren't too too long
+  // NEEDS TO BE FIXED FOR LARGER INPUTS (IE PART 4)
+  // SOMEHOW RETURNS NEGATIVE VALUES FOR LARGER INPUTS
   public static long exp(long b, long e) {
     long res = 1;
     for (int i = 0; i < e; i++) {
@@ -69,9 +71,9 @@ public class Communicator {
   }
 
   public static void main(String[] args) {
-    Communicator alice = new Communicator(13, 11, 7);
-    Communicator bob = new Communicator(13, 11, 9);
-    Communicator eve = new Communicator(13, 11, 10);
+    Communicator alice = new Communicator(23, 31, 7);
+    Communicator bob = new Communicator(23, 31, 9);
+    Communicator eve = new Communicator(23, 31, 10);
     alice.setSharedKey(bob);
     bob.setSharedKey(alice);
     alice.setMessage("decode me");
