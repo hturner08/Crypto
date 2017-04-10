@@ -1,6 +1,6 @@
 public class Communicator {
-  public long publicBase; // prime
-  public long publicModulus; // prime
+  public long publicBase; // prime, shared by alice and bob
+  public long publicModulus; // prime, shared by alice and bob
   public long publicKey;
   private long privateKey; //should be between 2 and publicModulus
   private long sharedSecretKey;
@@ -14,7 +14,7 @@ public class Communicator {
     else {
       throw new IllegalArgumentException("Private key must be between 2 and the public modulus!");
     }
-    publicKey = exp(publicBase, privateKey) % publicModulus;
+    publicKey = (exp(publicBase, privateKey)) % publicModulus;
   }
 
   public static long exp(long b, long e) {
@@ -26,9 +26,16 @@ public class Communicator {
   }
 
   private void setSharedKey(Communicator other) {
-    sharedSecretKey = exp(other.publicKey, this.privateKey) % publicModulus;
+    sharedSecretKey = (exp(other.publicKey, this.privateKey)) % publicModulus;
+    System.out.println(sharedSecretKey);
   }
 
   public static void main(String[] args) {
+    Communicator alice = new Communicator(13, 11, 7);
+    Communicator bob = new Communicator(13, 11, 9);
+    alice.setSharedKey(bob);
+    bob.setSharedKey(alice);
+
+
   }
 }
